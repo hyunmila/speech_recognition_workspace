@@ -22,16 +22,17 @@ from geometry_msgs.msg import Twist
 #         rate.sleep()
 #         i+=1
 
-def talker():
+def talker(speed):
     pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     # rospy.init_node('talker')
     rate = rospy.Rate(0.5) # 10hz
     i=0
-    speed = input("Speed: ")
+    # speed = input("Speed: ")
     # while not rospy.is_shutdown():
     while i<2:
         msg = Twist()
         msg.linear.x=float(speed)
+        # msg.angular.x=float(speed)
         rospy.loginfo(msg)
         # print("i", i)
         pub.publish(msg)
@@ -40,10 +41,10 @@ def talker():
         i+=1
 
 # if __name__ == '__main__':
-def node_start():
+def node_start(speed):
     print("starting the node")
     rospy.init_node('talker')
-    talker()
+    talker(speed)
     print("ass")
     # rospy.spin()
 
