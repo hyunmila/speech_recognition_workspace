@@ -45,7 +45,6 @@ def node_start(speed):
     print("starting the node")
     rospy.init_node('talker')
     talker(speed)
-    print("ass")
     # rospy.spin()
 
 # if __name__ == '__main__':
