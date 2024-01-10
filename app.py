@@ -86,14 +86,12 @@ class TopLevelWindow(customtkinter.CTkToplevel):
         if query=="":
             pass
         elif query in list_1:
-            print("uwu")
+            forward.node_start(speed=0.5)
+        elif query in list_2:
+            stop.node_start()
 
-            
-        
         
     def speaking_stop(self):
-        # print("stoooop")
-        
         self.speaking_button.configure(command = self.speaking_start)
         self.var_check = 0
         self.speaking_button.after_cancel(self.callback_after)
