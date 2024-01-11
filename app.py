@@ -17,7 +17,7 @@ class TopLevelWindow(customtkinter.CTkToplevel):
         self.output_box = customtkinter.CTkTextbox(self, state = "disabled")
         self.output_box.grid(row=0, column=1, padx=20, pady=20, sticky="ew", columnspan=1, rowspan=2)
         # sleep(1)
-        self.mode = 1
+        self.mode = 0
         self.var_check = 0
         self.callback_after = ""
         self.output_box.configure(state="normal")
@@ -32,8 +32,8 @@ class TopLevelWindow(customtkinter.CTkToplevel):
         
 
     def speaking_start(self, *args):
-        print(self.var_check)
-        print(self.speaking_button.cget("state"))
+        # print(self.var_check)
+        # print(self.speaking_button.cget("state"))
         
         if self.var_check == 0:
             self.speaking_button.configure(command = self.speaking_stop)
@@ -50,13 +50,14 @@ class TopLevelWindow(customtkinter.CTkToplevel):
                 
                 
                 audio_data = r.record(source)
-                query = r.recognize_google(audio_data, language='en-US')
+                # query = r.recognize_google(audio_data, language='en-US')
+                query = r.recognize_google(audio_data)
                 # query = "goo"
-                # print(query)
+                print(query)
                 self.output_box.configure(state="normal")
                 self.output_box.insert("3.0", f"User said: {query}\n")
                 self.output_box.configure(state="disabled")
-        if self.mode == 1:
+        elif self.mode == 1:
             with sr.Microphone() as mic:
                 
                 r.adjust_for_ambient_noise(mic)
@@ -74,21 +75,25 @@ class TopLevelWindow(customtkinter.CTkToplevel):
 
                 self.output_box.configure(state="disabled")
                 sleep(5)
-
+        print(query)
         self.query_check(query)
         self.callback_after = self.speaking_button.after(5000, self.speaking_start)
-        print(self.callback_after)
+        # print(self.callback_after)
 
         
-    def query_check(query):
+    def query_check(self, *args):
+        query=args[0]
+        print(query)
         list_1 = ["go forward", "forward", "start", "move", "drive"]
         list_2 = ["stop", "break", "pause", "finish", "close", "end", "stay"]
         if query=="":
             pass
         elif query in list_1:
-            forward.node_start(speed=0.5)
+            # forward.node_start(speed=0.5)
+            print(query+" in list_1")
         elif query in list_2:
-            stop.node_start()
+            # stop.node_start()
+            print(query+" in list_2")
 
         
     def speaking_stop(self):
