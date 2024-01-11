@@ -89,10 +89,10 @@ class TopLevelWindow(customtkinter.CTkToplevel):
         if query=="":
             pass
         elif query in list_1:
-            # forward.node_start(speed=0.5)
+            forward.node_start(speed=0.5)
             print(query+" in list_1")
         elif query in list_2:
-            # stop.node_start()
+            stop.node_start()
             print(query+" in list_2")
 
         
@@ -100,6 +100,10 @@ class TopLevelWindow(customtkinter.CTkToplevel):
         self.speaking_button.configure(command = self.speaking_start)
         self.var_check = 0
         self.speaking_button.after_cancel(self.callback_after)
+        stop.node_start()
+        self.output_box.configure(state="normal")
+        self.output_box.insert("4.0", "Stopping.\n")
+        self.output_box.configure(state="disabled")
 
 
 class App(customtkinter.CTk):
